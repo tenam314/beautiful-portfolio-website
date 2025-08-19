@@ -24,17 +24,21 @@ import {
   Star,
   Send,
   ChevronDown,
-  Sparkles
+  Sparkles,
+  Moon,
+  Sun
 } from "lucide-react";
 
 export default function Portfolio() {
   const [searchQuery, setSearchQuery] = useState("");
   const [chatMessages, setChatMessages] = useState([
-    { role: "assistant", content: "Hi! I'm here to help you find what you're looking for in this portfolio. You can ask me about projects, skills, experience, or anything else!" }
+    { role: "assistant", content: "Hi! I'm here to help you learn about Troy's background and experience. Feel free to ask me about his projects, skills, experience, or anything else you'd like to know!" }
   ]);
   const [currentMessage, setCurrentMessage] = useState("");
   const [activeSection, setActiveSection] = useState("hero");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
 
   const heroRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -71,39 +75,72 @@ export default function Portfolio() {
     }
   };
 
-  // Chat functionality for recruiters
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    if (!darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
+
+  // Enhanced chat functionality for recruiters
   const handleSendMessage = () => {
     if (!currentMessage.trim()) return;
 
     const userMessage = { role: "user", content: currentMessage };
     setChatMessages(prev => [...prev, userMessage]);
+    setIsTyping(true);
 
-    // Simple AI-like responses for demo
+    // Enhanced AI-like responses
     setTimeout(() => {
       let response = "";
       const query = currentMessage.toLowerCase();
 
-      if (query.includes("react") || query.includes("frontend")) {
-        response = "Great question! I have extensive experience with React, Next.js, and modern frontend technologies. Check out the Projects section to see my React applications in action!";
+      // More sophisticated keyword matching
+      if (query.includes("react") || query.includes("frontend") || query.includes("javascript") || query.includes("js")) {
+        response = "Great question! Troy has extensive experience with React, Next.js, TypeScript, and modern frontend technologies. His frontend development skills are rated at 65%. You can see his React applications in the Projects section - particularly the High-Velocity Data Platform and Industrial Laser Innovation projects!";
         scrollToSection("projects");
-      } else if (query.includes("backend") || query.includes("api") || query.includes("node")) {
-        response = "I'm well-versed in backend development with Node.js, Python, and various databases. You can find examples of full-stack projects in my portfolio!";
+      } else if (query.includes("backend") || query.includes("api") || query.includes("node") || query.includes("python") || query.includes("server")) {
+        response = "Troy is exceptionally strong in backend development (90% proficiency)! He's worked with Node.js, Python, FastAPI, PostgreSQL, and various databases. His current role at The Flyover involves scaling real-time platforms from 10M to 50M+ daily events. Check out his backend-focused projects!";
         scrollToSection("projects");
-      } else if (query.includes("experience") || query.includes("years")) {
-        response = "I'd be happy to share my professional journey! Take a look at my Experience section for detailed information about my roles and achievements.";
+      } else if (query.includes("devops") || query.includes("aws") || query.includes("docker") || query.includes("kubernetes") || query.includes("cloud")) {
+        response = "Troy has strong DevOps skills (85% proficiency) including AWS, Docker, Kubernetes, and CI/CD. At StickerGiant, he led cloud transformation initiatives that helped drive a $100M+ acquisition. His infrastructure work is showcased in several projects!";
+        scrollToSection("projects");
+      } else if (query.includes("leadership") || query.includes("management") || query.includes("team") || query.includes("manager")) {
+        response = "Troy has excellent Engineering Leadership skills (80% proficiency) with 11+ years in management roles. He's currently VP of Engineering at The Flyover and was previously Director of Software Engineering at StickerGiant. He's known for building high-trust teams and culture-first leadership!";
         scrollToSection("experience");
-      } else if (query.includes("skills") || query.includes("technologies")) {
-        response = "I work with a diverse tech stack! Check out my Skills section to see all the technologies I'm proficient in, from frontend frameworks to cloud platforms.";
+      } else if (query.includes("product") || query.includes("0-1") || query.includes("startup") || query.includes("entrepreneur")) {
+        response = "Troy excels at 0-1 Product Engineering (95% proficiency)! He co-founded Allie Bolton and has experience taking products from concept to scale. He's helped clients win major competitions like SXSW Pitch Slam and grow audiences 10x. Check out his entrepreneurial experience!";
+        scrollToSection("experience");
+      } else if (query.includes("experience") || query.includes("years") || query.includes("background") || query.includes("career")) {
+        response = "Troy has 17+ years of technical experience and 11+ years in management. He's worked at companies ranging from Target Corp to startups, with roles including VP of Engineering, Director of Software Engineering, and Co-Founder. His experience spans the full stack and multiple industries!";
+        scrollToSection("experience");
+      } else if (query.includes("skills") || query.includes("technologies") || query.includes("tech stack") || query.includes("programming")) {
+        response = "Troy works with a comprehensive tech stack! His strongest areas are: Backend Development (90%), 0-1 Product Engineering (95%), DevOps (85%), Engineering Leadership (80%), and Frontend Development (65%). Technologies include Python, JavaScript, AWS, Docker, PostgreSQL, React, and much more!";
         scrollToSection("skills");
-      } else if (query.includes("contact") || query.includes("hire") || query.includes("available")) {
-        response = "I'm always interested in new opportunities! Feel free to reach out through the Contact section. I typically respond within 24 hours.";
+      } else if (query.includes("contact") || query.includes("hire") || query.includes("available") || query.includes("opportunity") || query.includes("job")) {
+        response = "Troy is always interested in new opportunities! You can reach him at troynamath@gmail.com, connect on LinkedIn at linkedin.com/in/troynamath, or visit his website at troynamath.com. He typically responds within 24 hours and is open to discussing roles in engineering leadership, product development, and technical strategy.";
+        scrollToSection("contact");
+      } else if (query.includes("projects") || query.includes("work") || query.includes("portfolio") || query.includes("examples")) {
+        response = "Troy has worked on some impressive projects! Highlights include: scaling a real-time data platform to 50M+ daily events, implementing industrial lasers that cut production time by 79%, developing computer vision ML systems, and creating social analytics platforms. Each project demonstrates different aspects of his technical leadership!";
+        scrollToSection("projects");
+      } else if (query.includes("hello") || query.includes("hi") || query.includes("hey")) {
+        response = "Hello! Great to meet you! I'm here to help you learn about Troy Namath's background and experience. Feel free to ask me about his technical skills, leadership experience, projects, or anything else you'd like to know about his professional journey.";
+      } else if (query.includes("salary") || query.includes("compensation") || query.includes("pay")) {
+        response = "For compensation and salary discussions, it's best to reach out to Troy directly through the Contact section. He's open to discussing opportunities and can provide more details about his experience and expectations in a direct conversation.";
+        scrollToSection("contact");
+      } else if (query.includes("location") || query.includes("remote") || query.includes("where")) {
+        response = "Troy has experience working both remotely and on-site. For specific location preferences and remote work arrangements, I'd recommend reaching out to him directly through the contact information provided. He's worked with distributed teams and is open to various arrangements!";
         scrollToSection("contact");
       } else {
-        response = "Thanks for your question! Feel free to explore different sections of my portfolio, or ask me more specific questions about my projects, skills, or experience.";
+        response = "I'd be happy to help you learn more about Troy! You can ask me about his technical skills (backend, frontend, DevOps), leadership experience, specific projects, career background, or how to get in touch with him. What would you like to know more about?";
       }
 
+      setIsTyping(false);
       setChatMessages(prev => [...prev, { role: "assistant", content: response }]);
-    }, 1000);
+    }, Math.random() * 1000 + 1500); // Variable delay to seem more natural
 
     setCurrentMessage("");
   };
@@ -228,7 +265,7 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+    <div className={`min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 ${darkMode ? 'dark' : ''}`}>
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -263,6 +300,21 @@ export default function Portfolio() {
             </div>
 
             <div className="flex items-center space-x-4">
+              {/* Dark Mode Toggle */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleDarkMode}
+                className="w-9 h-9 rounded-lg"
+              >
+                {darkMode ? (
+                  <Sun className="h-4 w-4" />
+                ) : (
+                  <Moon className="h-4 w-4" />
+                )}
+                <span className="sr-only">Toggle dark mode</span>
+              </Button>
+
               {/* Search/Chat Interface - MOVED TO HERO SECTION */}
               {/*
               <Dialog>
@@ -410,6 +462,17 @@ export default function Portfolio() {
                           </div>
                         </div>
                       ))}
+                      {isTyping && (
+                        <div className="flex justify-start">
+                          <div className="max-w-[80%] p-3 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border">
+                            <div className="flex space-x-1">
+                              <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
+                              <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                              <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                     <div className="flex space-x-2">
                       <Input
@@ -430,9 +493,15 @@ export default function Portfolio() {
                   </div>
                 </DialogContent>
               </Dialog>
-              <p className="text-sm text-slate-500 text-center max-w-md">
-                💬 Ask me anything about my projects, experience, or skills - I'm here to help!
-              </p>
+              <div className="text-center max-w-md">
+                <p className="text-sm text-slate-500 mb-2">
+                  💬 Ask me anything about Troy's background!
+                </p>
+                <div className="text-xs text-slate-400 space-y-1">
+                  <p>Try: "Tell me about his backend experience"</p>
+                  <p>Or: "What leadership roles has he had?"</p>
+                </div>
+              </div>
             </div>
 
             <div className="flex flex-wrap justify-center gap-4">
