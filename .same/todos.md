@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Beautiful Portfolio Website - Development Progress
 
 ## ✅ COMPLETED TASKS
@@ -42,3 +43,24 @@
 
 ## 🚀 READY FOR NEXT PHASE
 Portfolio is now polished and production-ready with all requested fixes implemented.
+=======
+# Portfolio Development Todos
+
+## Completed ✅
+- [x] Enhanced chatbot with comprehensive knowledge base
+- [x] Live deployment working
+
+## Requested Changes for AWS Amplify 🚧
+- [x] Remove Docker-related files and configs (Dockerfile, docker-compose, nginx, healthcheck)
+- [x] Remove Netlify-specific config
+- [x] Update next.config.js for SSR and Amplify compatibility
+- [x] Clean package.json scripts (remove turbopack)
+- [ ] Remove chatbot UI and logic from page.tsx
+- [ ] Prepare Amplify build settings (amplify.yml)
+- [ ] Push changes to GitHub main branch
+
+## Next Steps 📝
+- [ ] Verify Amplify build pipeline on GitHub connect
+- [ ] Confirm routing and assets work with SSR
+- [ ] Final smoke test on Amplify preview
+>>>>>>> 9e5ff1b (Remove chatbot UI/logic and Docker/Netlify configs; prepare project for AWS Amplify)

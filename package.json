@@ -1,9 +1,17 @@
 {
+<<<<<<< HEAD
   "name": "nextjs-shadcn",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev -H 0.0.0.0 --turbopack",
+=======
+  "name": "beautiful-portfolio-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -H 0.0.0.0",
+>>>>>>> 9e5ff1b (Remove chatbot UI/logic and Docker/Netlify configs; prepare project for AWS Amplify)
     "build": "next build",
     "start": "next start",
     "lint": "bunx tsc --noEmit && next lint",
@@ -22,7 +30,10 @@
     "next": "^15.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+<<<<<<< HEAD
     "same-runtime": "^0.0.1",
+=======
+>>>>>>> 9e5ff1b (Remove chatbot UI/logic and Docker/Netlify configs; prepare project for AWS Amplify)
     "tailwind-merge": "^3.3.0",
     "tailwindcss-animate": "^1.0.7"
   },
